@@ -98,6 +98,11 @@
             cursor: pointer;
             color: white;
         }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -112,4 +117,53 @@
                 <input type="password" id="password" placeholder="Password" required>
                 <span class="material-icons" id="togglePassword">visibility</span>
             </div>
-            <button type="submit" class="login-btn">Sign In</button
+            <button type="submit" class="login-btn">Sign In</button>
+            <p class="error-message" id="errorMessage"></p>
+        </form>
+        <div class="links">
+            <a href="#">Lupa Password?</a>
+            <a href="#">Buat Akun</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("togglePassword").addEventListener("click", function() {
+            let passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                this.textContent = "visibility_off";
+            } else {
+                passwordField.type = "password";
+                this.textContent = "visibility";
+            }
+        });
+
+        document.getElementById("loginForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const errorMessage = document.getElementById("errorMessage");
+
+            try {
+                const response = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "login", email: email, password: password })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    sessionStorage.setItem("user", JSON.stringify(result.user));
+                    window.location.href = "maindata.html";
+                } else {
+                    errorMessage.textContent = "Login gagal! Periksa email dan password.";
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                errorMessage.textContent = "Terjadi kesalahan saat login.";
+            }
+        });
+    </script>
+</body>
+</html>
