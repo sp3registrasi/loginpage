@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Utama</title>
+    <!-- Link to Google Fonts (Roboto Condensed untuk teks lainnya) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Condensed', sans-serif; /* Menggunakan font Roboto Condensed untuk teks lainnya */
+            background: linear-gradient(to right, #00B5D8, #008C6C, #FFFFFF); /* Gradasi sesuai dengan halaman registrasi */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: 'Anton', sans-serif; /* Menggunakan font Anton untuk tulisan "WELCOME" */
+            font-size: 5em; /* Ukuran lebih besar */
+            font-weight: 900; /* Lebih tebal */
+            background: linear-gradient(to right, #00B5D8, #008C6C); /* Gradasi sesuai tema login dan register */
+            -webkit-background-clip: text; /* Mengaplikasikan gradasi hanya pada teks */
+            color: transparent; /* Membuat teks transparan agar gradasi terlihat */
+            margin-top: 0; /* Menghilangkan margin atas */
+            margin-bottom: 10px; /* Mengurangi jarak antara "WELCOME" dan baris kosong */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), 0 0 25px rgba(0, 0, 0, 0.1); /* Efek 3D dengan bayangan */
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8); /* Latar belakang putih transparan */
+            border-radius: 12px;
+            padding: 20px 30px; /* Mengurangi padding atas dan bawah */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px; /* Lebar kontainer lebih besar agar teks lebih lega */
+            text-align: center;
+            margin-top: 5px; /* Mengurangi jarak atas frame lebih rapat */
+        }
+
+        /* Mengatur paragraf agar jarak antar baris lebih banyak */
+        .container p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 15px; /* Mengurangi jarak antar paragraf */
+            line-height: 1.8; /* Jarak antar baris lebih besar */
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Gaya untuk link Login dan Registrasi */
+        .link {
+            color: #00B5D8; /* Warna link sesuai dengan warna tema login dan registrasi */
+            font-weight: bold;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .link:hover {
+            color: #008C6C; /* Warna link saat hover */
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>WELCOME</h1>
+        
+        <!-- Teks untuk login -->
+        <p>Untuk Akses Aplikasi <strong>"Request Nomor SP3"</strong><br>Silahkan anda <a href="login.html" class="link">LOGIN</a> terlebih dahulu.</p>
+        
+        <!-- Teks untuk registrasi -->
+        <p>Jika anda belum terdaftar<br>Silahkan <a href="register.html" class="link">Registrasi</a> terlebih dahulu.</p>
+    </div>
+
+    <script>
+        // Otomatis mengarahkan pengguna ke halaman login setelah beberapa detik
+        setTimeout(function() {
+            window.location.href = 'login.html';
+        }, 300000);  // 5 menit
+    </script>
+
+</body>
+</html>

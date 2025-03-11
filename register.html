@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrasi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link ke Google Fonts untuk Roboto Condensed -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Menggunakan font Roboto Condensed */
+        body {
+            background: linear-gradient(to right, #00B5D8, #008C6C, #FFFFFF);
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+    </style>
+</head>
+<body class="flex justify-center items-center min-h-screen">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+        <h2 class="text-2xl font-bold mb-6 text-center text-teal-500">DAFTAR AKUN BARU</h2> <!-- Warna teks diubah ke #00B5D8 -->
+        <form id="registerForm" class="space-y-4">
+            <input type="email" id="email" placeholder="Email" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <input type="text" id="namaLengkap" placeholder="Nama Lengkap" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <input type="text" id="namaPerusahaan" placeholder="Nama Perusahaan" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <input type="password" id="password" placeholder="Password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <input type="password" id="confirmPassword" placeholder="Konfirmasi Password" class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            <button type="submit" class="w-full bg-teal-500 text-white py-2 rounded-md hover:bg-teal-600 transition duration-300 font-bold">
+                SIGN UP
+            </button>
+        </form>
+        <p class="text-center text-sm mt-4 text-gray-600">
+            Sudah punya akun? <a href="login.html" class="text-teal-500 hover:underline">Login di sini</a>
+        </p>
+        <p id="responseMessage" class="text-center text-sm mt-4 text-gray-600"></p>
+    </div>
+    
+    <script>
+        document.getElementById("registerForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var email = document.getElementById("email").value;
+            var namaLengkap = document.getElementById("namaLengkap").value;
+            var namaPerusahaan = document.getElementById("namaPerusahaan").value;
+            var password = document.getElementById("password").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                document.getElementById("responseMessage").innerText = "Password tidak cocok!";
+                return;
+            }
+
+            var formData = { email, namaLengkap, namaPerusahaan, password };
+
+            google.script.run.withSuccessHandler(function(response) {
+                document.getElementById("responseMessage").innerText = response;
+            }).registerUser(formData);
+        });
+    </script>
+</body>
+</html>

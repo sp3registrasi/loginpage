@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP3 - User Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-green-300 via-blue-300 to-indigo-300 flex">
+    <aside class="w-24 bg-gradient-to-b from-green-500 to-blue-500 text-white p-6 min-h-screen flex flex-col items-center space-y-6 shadow-lg">
+        <a href="#" class="text-white text-3xl hover:text-gray-200 transition"><i class="ph ph-sign-out"></i></a>
+        <a href="#" class="text-white text-3xl hover:text-gray-200 transition"><i class="ph ph-users"></i></a>
+    </aside>
+    
+    <main class="flex-1 p-6">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-5xl mx-auto border border-gray-200">
+            <h2 class="text-4xl font-bold mb-6 text-center text-green-700">SP3 - User Management</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse border border-green-300 rounded-lg shadow-md">
+                    <thead>
+                        <tr class="bg-gradient-to-r from-green-500 to-blue-500 text-white">
+                            <th class="border p-4">Email</th>
+                            <th class="border p-4">Nama</th>
+                            <th class="border p-4">Perusahaan</th>
+                            <th class="border p-4">Role</th>
+                            <th class="border p-4">Status</th>
+                            <th class="border p-4">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTable" class="text-green-700"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        function loadUsers() {
+            fetch("URL_API_GET_USERS")
+                .then(response => response.json())
+                .then(data => {
+                    const table = document.getElementById("userTable");
+                    table.innerHTML = "";
+                    data.forEach(user => {
+                        const row = `<tr class='bg-white border-b hover:bg-green-100 transition'>
+                            <td class='border p-4'>${user.email}</td>
+                            <td class='border p-4'>${user.namaLengkap}</td>
+                            <td class='border p-4'>${user.namaPerusahaan}</td>
+                            <td class='border p-4'>
+                                <select class='role-select border p-2 rounded bg-green-100' data-email='${user.email}'>
+                                    <option value='User' ${user.role === 'User' ? 'selected' : ''}>User</option>
+                                    <option value='Admin' ${user.role === 'Admin' ? 'selected' : ''}>Admin</option>
+                                </select>
+                            </td>
+                            <td class='border p-4'>
+                                <select class='status-select border p-2 rounded bg-green-100' data-email='${user.email}'>
+                                    <option value='Pending' ${user.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                    <option value='Approved' ${user.status === 'Approved' ? 'selected' : ''}>Approved</option>
+                                </select>
+                            </td>
+                            <td class='border p-4 flex gap-3'>
+                                <button class='update-btn bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition' data-email='${user.email}'><i class='ph ph-pencil'></i></button>
+                                <button class='delete-btn bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition' data-email='${user.email}'><i class='ph ph-trash'></i></button>
+                            </td>
+                        </tr>`;
+                        table.innerHTML += row;
+                    });
+                    
+                    document.querySelectorAll('.update-btn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const email = this.getAttribute('data-email');
+                            const role = document.querySelector(`.role-select[data-email='${email}']`).value;
+                            const status = document.querySelector(`.status-select[data-email='${email}']`).value;
+                            updateUser(email, role, status);
+                        });
+                    });
+
+                    document.querySelectorAll('.delete-btn').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const email = this.getAttribute('data-email');
+                            deleteUser(email);
+                        });
+                    });
+                });
+        }
+        
+        function updateUser(email, role, status) {
+            fetch("URL_API_UPDATE_USER", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, role, status })
+            }).then(response => response.json())
+              .then(data => alert(data.message));
+        }
+
+        function deleteUser(email) {
+            if (confirm("Apakah Anda yakin ingin menghapus user ini?")) {
+                fetch("URL_API_DELETE_USER", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email })
+                }).then(response => response.json())
+                  .then(data => {
+                      alert(data.message);
+                      loadUsers();
+                  });
+            }
+        }
+
+        loadUsers();
+    </script>
+</body>
+</html>

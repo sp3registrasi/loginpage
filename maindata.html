@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Nomor SP3 - Surat Permintaan Proses Pembayaran</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome untuk Icon -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    body {
+      background-color: #E0F2F1;
+      color: #333;
+      padding: 20px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #00897B;
+      padding: 15px 20px;
+      border-radius: 10px;
+      color: white;
+    }
+
+    .navbar h1 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 15px;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: 100%;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #00695C;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 10px 40px;
+      font-size: 16px;
+      border: 2px solid #00897B;
+      border-radius: 25px;
+      outline: none;
+      transition: 0.3s;
+      background: white;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00897B;
+    }
+
+    .add-button {
+      padding: 10px;
+      background: #00897B;
+      color: white;
+      text-align: center;
+      border-radius: 5px;
+      cursor: pointer;
+      float: right;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      word-wrap: break-word;
+    }
+
+    th {
+      background-color: #00897B;
+      color: white;
+      text-transform: uppercase;
+      font-size: 14px;
+    }
+
+    .edit, .delete {
+      cursor: pointer;
+      color: #00897B;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="navbar">
+  <h1>Request Nomor SP3 - Surat Permintaan Proses Pembayaran</h1>
+  <div class="nav-links">
+    <a href="#" onclick="goToUserManager()">Data User</a> <!-- Tombol untuk menuju halaman user_manager.html -->
+    <a href="#" onclick="signOut()">Sign Out</a>
+  </div>
+</div>
+
+<div class="container">
+  <h2>Data Nomor SP3 (Surat Permintaan Proses Pembayaran)</h2>
+  <div class="search-container">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Cari data...">
+    </div>
+    <button class="add-button" onclick="addRow()">Tambah Data</button>
+  </div>
+  <table id="dataTable">
+    <thead>
+      <tr>
+        <th>Nomor Dokumen</th>
+        <th>Tanggal Upload</th>
+        <th>Pemilik Dokumen</th>
+        <th>Nomor OAS Kontrak</th>
+        <th>Nama Perusahaan</th>
+        <th>Deskripsi</th>
+        <th>File Dokumen</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data akan ditambahkan di sini -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  function signOut() {
+    if (confirm("Yakin anda akan keluar dari halaman ini?")) {
+      window.location.href = "login.html";
+    }
+  }
+
+  function addRow() {
+    // Arahkan ke halaman tambah_data.html
+    window.location.href = "tambah_data.html"; 
+  }
+
+  function goToUserManager() {
+    // Arahkan ke halaman user_manager.html
+    window.location.href = "user_manage.html";
+  }
+
+  function editRow(element) {
+    let row = element.parentNode.parentNode;
+    let cells = row.getElementsByTagName("td");
+    for (let i = 0; i < cells.length - 1; i++) {
+      cells[i].contentEditable = true;
+    }
+  }
+
+  function deleteRow(element) {
+    let row = element.parentNode.parentNode;
+    row.remove();
+  }
+</script>
+
+</body>
+</html>

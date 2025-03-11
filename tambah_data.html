@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INPUT DATA UNTUK PERMINTAAN NOMOR SP3</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #F4F7F6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      width: 95%;
+      max-width: 800px;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    label {
+      font-weight: 400;
+      display: block;
+      margin-top: 8px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    label span.required {
+      color: red;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .row div {
+      width: 50%;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 6px;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      margin-top: 3px;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #00897B;
+      box-shadow: 0 0 5px rgba(0, 137, 123, 0.2);
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .file-input-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .file-input-container input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+
+    .file-label {
+      display: inline-block;
+      padding: 6px 12px;
+      background: #00897B;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .file-label::after {
+      content: " Browse";
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+
+    button {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .save-btn {
+      background: #00897B;
+      color: white;
+      margin-right: 8px;
+    }
+
+    .save-btn:hover {
+      background: #00796B;
+    }
+
+    .cancel-btn {
+      background: #B0BEC5;
+      color: white;
+    }
+
+    .cancel-btn:hover {
+      background: #90A4AE;
+    }
+
+    .disabled-input {
+      background-color: #e0e0e0;
+      cursor: not-allowed;
+    }
+
+    .required-note {
+      margin-top: 15px;
+      font-size: 12px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>INPUT DATA UNTUK PERMINTAAN NOMOR SP3</h2>
+  <form id="addDataForm">
+    <div class="row">
+      <div>
+        <label for="pemilikDokumen">Pemilik Dokumen <span class="required">*</span></label>
+        <select id="pemilikDokumen" required>
+          <option value="">Pilih Pemilik Dokumen</option>
+          <option value="User 1">Senior Manager DWI Regional 1</option>
+          <option value="User 2">Manager DWI Engineering Performance & Evaluation Regional 1</option>
+          <option value="User 3">Manager DWI Planning Regional 1</option>
+          <option value="User 4">Manager DWI Operation Regional 1</option>
+        </select>
+      </div>
+      <div>
+        <label for="nomorSP3">Nomor SP3</label>
+        <input type="text" id="nomorSP3" class="disabled-input" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="nomorOAS">Nomor OAS Kontrak <span class="required">*</span></label>
+        <input type="text" id="nomorOAS" required>
+      </div>
+      <div>
+        <label for="nomorInvoice">Nomor Invoice <span class="required">*</span></label>
+        <input type="text" id="nomorInvoice" required>
+      </div>
+    </div>
+    <div>
+      <label for="namaPerusahaan">Nama Perusahaan <span class="required">*</span></label>
+      <input type="text" id="namaPerusahaan" required>
+    </div>
+
+    <label for="deskripsi">Deskripsi Invoice (Untuk Pekerjaan)<span class="required">*</span></label>
+    <textarea id="deskripsi" rows="3" required></textarea>
+
+    <label for="nomorSA">Nomor SA (Service Acceptance) <span class="required">*</span></label>
+    <textarea id="nomorSA" rows="2" required></textarea>
+
+    <label>Upload File Dokumen <span class="required">*</span></label>
+    <div class="file-input-container">
+      <label for="fileDokumen" class="file-label"></label>
+      <input type="file" id="fileDokumen" required>
+    </div>
+
+    <div class="required-note">* Harus diisi</div>
+
+    <div class="button-container">
+      <button type="submit" class="save-btn">Simpan</button>
+      <button type="button" class="cancel-btn" onclick="cancelForm()">Batal</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Fungsi untuk menangani pembatalan
+  function cancelForm() {
+    if (confirm("Apakah Anda yakin ingin membatalkan? Semua data yang belum disimpan akan hilang.")) {
+      window.location.href = 'maindata.html'; // Arahkan ke halaman utama data
+    }
+  }
+
+  // Fungsi untuk menangani pengiriman formulir
+  document.getElementById("addDataForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Mencegah pengiriman form yang default
+    // Proses data atau simpan ke database atau lakukan pengalihan
+    alert("Data berhasil disimpan!");
+    window.location.href = "maindata.html"; // Mengarahkan ke halaman data utama setelah menyimpan
+  });
+
+  document.getElementById("pemilikDokumen").addEventListener("change", function() {
+    let nomorSP3Input = document.getElementById("nomorSP3");
+    let pemilikDokumen = this.value; // Ambil nilai yang dipilih
+    let nomorDokumen = ""; // Default kosong
+
+    // Tentukan nomor dokumen berdasarkan pemilik dokumen
+    switch (pemilikDokumen) {
+        case "User 1":
+            nomorDokumen = "SP3/PHR14400/2025-S4";
+            break;
+        case "User 2":
+            nomorDokumen = "SP3/PHR14410/2025-S4";
+            break;
+        case "User 3":
+            nomorDokumen = "SP3/PHR14420/2025-S4";
+            break;
+        case "User 4":
+            nomorDokumen = "SP3/PHR14430/2025-S4";
+            break;
+        default:
+            nomorDokumen = "";
+    }
+
+    // Masukkan nomor dokumen ke dalam input (tetap disabled)
+    nomorSP3Input.value = nomorDokumen;
+});
+
+</script>
+
+</body>
+</html>
