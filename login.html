@@ -145,7 +145,7 @@
             const errorMessage = document.getElementById("errorMessage");
 
             try {
-                const response = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbyjcctsP_DWGbw9VQw9dQnbEpg31r6ltIuaTpzNekVcIjFoJXoUVRJuvomJ__JKOgLv/exec", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ action: "login", email: email, password: password })
