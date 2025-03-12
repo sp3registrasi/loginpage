@@ -171,10 +171,10 @@
                     sessionStorage.setItem("user", JSON.stringify(result.user));
                     window.location.href = "maindata.html";
                 } else {
-                    errorMessage.textContent = "Login gagal! Periksa email dan password.";
+                    errorMessage.textContent = "Login gagal! Periksa email dan password";
                 }
             } catch (error) {
-                errorMessage.textContent = "Terjadi kesalahan saat login.";
+                errorMessage.textContent = "Terjadi kesalahan saat login";
             }
 
             loginBtn.textContent = "Sign In";
