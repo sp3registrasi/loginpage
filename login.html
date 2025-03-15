@@ -74,10 +74,6 @@
         .login-btn:hover {
             background: #008C6C;
         }
-        .login-btn:disabled {
-            background: gray;
-            cursor: not-allowed;
-        }
         .links {
             display: flex;
             justify-content: space-between;
@@ -102,11 +98,6 @@
             cursor: pointer;
             color: white;
         }
-        .error-message {
-            color: red;
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
     </style>
 </head>
 <body>
@@ -121,64 +112,67 @@
                 <input type="password" id="password" placeholder="Password" required>
                 <span class="material-icons" id="togglePassword">visibility</span>
             </div>
-            <button type="submit" class="login-btn" id="loginBtn">Sign In</button>
-            <p class="error-message" id="errorMessage"></p>
+            <button type="submit" class="login-btn">Sign In</button>
         </form>
         <div class="links">
-            <a href="#">Lupa Password?</a>
-            <a href="#">Buat Akun</a>
+            <a href="forgot_password.html">Lupa Password?</a>
+            <a href="register.html">Register</a>
         </div>
     </div>
 
     <script>
         document.getElementById("togglePassword").addEventListener("click", function() {
-            let passwordField = document.getElementById("password");
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
+            const passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
                 this.textContent = "visibility_off";
             } else {
-                passwordField.type = "password";
+                passwordInput.type = "password";
                 this.textContent = "visibility";
             }
         });
 
         document.getElementById("loginForm").addEventListener("submit", async function(event) {
             event.preventDefault();
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-            const errorMessage = document.getElementById("errorMessage");
-            const loginBtn = document.getElementById("loginBtn");
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
             
-            errorMessage.textContent = "";
-            if (!email.includes("@") || password.length < 6) {
-                errorMessage.textContent = "Format email salah atau password kurang dari 6 karakter";
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Format email tidak valid!");
                 return;
             }
-            
-            loginBtn.textContent = "Memproses...";
-            loginBtn.disabled = true;
 
-            try {
-                const response = await fetch("https://script.google.com/macros/s/YOUR_SCRIPT_URL/exec", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ action: "login", email: email, password: password })
-                });
-
-                const result = await response.json();
-
-                if (result.success) {
-                    sessionStorage.setItem("user", JSON.stringify(result.user));
-                    window.location.href = "maindata.html";
-                } else {
-                    errorMessage.textContent = "Login gagal! Periksa email dan password";
-                }
-            } catch (error) {
-                errorMessage.textContent = "Terjadi kesalahan saat login";
+            // Cek jika login masih di localhost
+            if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+                alert("Login hanya bisa diuji di server online.");
+                return;
             }
 
-            loginBtn.textContent = "Sign In";
-            loginBtn.disabled = false;
+            try {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbx9-AKCH5d_VyAFcjaWND9biNGHt-QXxk1xjyouiZbBeXh5lYt4Gzp3d45e-02qylqvAA/exec", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    throw new Error("Gagal menghubungi server. Coba lagi nanti.");
+                }
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    alert("Login berhasil!");
+                    sessionStorage.setItem("user", JSON.stringify(data.user));
+                    window.location.href = "main_data.html";
+                } else {
+                    alert(data.message);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Gagal menghubungi server. Periksa koneksi internet Anda.");
+            }
         });
     </script>
 </body>
