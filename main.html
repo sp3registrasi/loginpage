@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Utama</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            color: black;
+            display: inline-block;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #ff4b5c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Selamat Datang!</h1>
+        <p id="user-info"></p>
+        <button onclick="logout()">Logout</button>
+    </div>
+    
+    <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        if (!user) {
+            window.location.href = "login.html";
+        } else {
+            document.getElementById("user-info").textContent = `Halo, ${user.namalengkap} (${user.role})!`;
+        }
+        
+        function logout() {
+            localStorage.removeItem("user");
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>
